@@ -1,4 +1,5 @@
 QT -= gui
+QT += network
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -24,3 +25,8 @@ TRANSLATIONS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+include(../QtWebApp/httpserver/httpserver.pri)
+
+DISTFILES += \
+    ../etc/MPosWebServer.ini
