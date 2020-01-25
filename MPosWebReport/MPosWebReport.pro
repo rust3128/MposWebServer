@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        helloworldcontroller.cpp \
         main.cpp
 
 TRANSLATIONS += \
@@ -30,3 +31,6 @@ include(../QtWebApp/httpserver/httpserver.pri)
 
 DISTFILES += \
     ../etc/MPosWebServer.ini
+
+HEADERS += \
+    helloworldcontroller.h
