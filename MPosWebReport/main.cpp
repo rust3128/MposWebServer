@@ -3,7 +3,8 @@
 #include <QFile>
 #include "httplistener.h"
 #include "httprequesthandler.h"
-#include "helloworldcontroller.h"
+#include "requestmapper.h"
+#include "global.h"
 
 using namespace stefanfrings;
 
@@ -61,8 +62,9 @@ int main(int argc, char *argv[])
     QSettings* listenerSettings=new QSettings(configFileName, QSettings::IniFormat, &a);
     listenerSettings->beginGroup("listener");
 
-    // Запуск HTTP сервера
-   new HttpListener(listenerSettings,new HelloWorldController(&a),&a);
+    new HttpListener(listenerSettings,new RequestMapper(&a),&a);
+
+
 
 
     return a.exec();
