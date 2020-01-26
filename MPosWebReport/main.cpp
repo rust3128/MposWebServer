@@ -58,6 +58,8 @@ int main(int argc, char *argv[])
 
     // Ищем конфигурационный файл
     QString configFileName=searchConfigFile();
+
+
     // Читаем настройки сервера
     QSettings* listenerSettings=new QSettings(configFileName, QSettings::IniFormat, &a);
     listenerSettings->beginGroup("listener");

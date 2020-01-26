@@ -13,6 +13,10 @@ public:
     // HttpRequestHandler interface
 public:
     void service(HttpRequest &request, HttpResponse &response);
+private:
+    void createLoginForm();
+private:
+    QString loginForm;
 };
 
 #endif // LOGINCONTROLLER_H
