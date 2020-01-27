@@ -3,7 +3,7 @@
 #include "SearchConfigFile.h"
 #include "DataBase/database.h"
 
-#include <QCoreApplication>
+#include <QApplication>
 #include <QTranslator>
 #include <QLibraryInfo>
 #include <QFile>
@@ -17,7 +17,7 @@ void messageHandler(QtMsgType type, const QMessageLogContext &context, const QSt
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    QApplication a(argc, argv);
     a.setApplicationName("MPosWebServer");
     a.setOrganizationName("RustSoft");
     // Устанавливаем файл логирования
@@ -46,9 +46,10 @@ int main(int argc, char *argv[])
     //Database
     QSettings *databaseSettings = new QSettings(configFileName,QSettings::IniFormat,&a);
     databaseSettings->beginGroup("database");
-    DataBase *db = new DataBase(databaseSettings);
+//    qInfo(logInfo()) << databaseSettings->status();
+    DataBase *db = new DataBase(databaseSettings,&a);
     if(!db->openDatabase()){
-        qCritical(logCritical()) << "Не могу открвыть базу даных!Ааварийное завершение работы.";
+        qCritical(logCritical()) << "Не могу открвыть базу даных! Ааварийное завершение работы.";
         return 1;
     }
 

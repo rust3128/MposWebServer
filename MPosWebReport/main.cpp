@@ -27,6 +27,7 @@ QString searchConfigFile()
     searchList.append(binDir+"/../../../../../"+appName+"/etc"); // for development with shadow build
     searchList.append(QDir::rootPath()+"etc/opt");
     searchList.append(QDir::rootPath()+"etc");
+    searchList.append("/home/rust/develop/MposWebServer/etc");
 
     foreach (QString dir, searchList)
     {

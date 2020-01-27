@@ -17,17 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     DataBase/database.cpp \
+    DataBase/datbasesettingsdialog.cpp \
     LoggingCategories/loggingcategories.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     DataBase/database.h \
+    DataBase/datbasesettingsdialog.h \
     LoggingCategories/loggingcategories.h \
     SearchConfigFile.h \
     mainwindow.h
 
 FORMS += \
+    DataBase/datbasesettingsdialog.ui \
     mainwindow.ui
 
 TRANSLATIONS += \
