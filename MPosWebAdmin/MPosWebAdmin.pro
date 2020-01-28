@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Clients/clientsdialog.cpp \
     DataBase/database.cpp \
     DataBase/datbasesettingsdialog.cpp \
     LoggingCategories/loggingcategories.cpp \
@@ -23,6 +24,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Clients/clientsdialog.h \
     DataBase/database.h \
     DataBase/datbasesettingsdialog.h \
     LoggingCategories/loggingcategories.h \
@@ -30,6 +32,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    Clients/clientsdialog.ui \
     DataBase/datbasesettingsdialog.ui \
     mainwindow.ui
 
@@ -43,3 +46,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     ../etc/MPosWebServer.ini
+
+RESOURCES += \
+    resource.qrc

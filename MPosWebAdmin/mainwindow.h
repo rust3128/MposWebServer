@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSettings>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -12,10 +13,14 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QSettings *set, QWidget *parent = nullptr);
     ~MainWindow();
+
+private slots:
+    void on_actionDataBase_triggered();
 
 private:
     Ui::MainWindow *ui;
+    QSettings *appSettings;
 };
 #endif // MAINWINDOW_H

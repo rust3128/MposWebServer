@@ -8,6 +8,7 @@ DataBase::DataBase(QSettings *settings, QObject *parent)
     : QObject(parent),
       dbSet(settings)
 {
+
     db = QSqlDatabase::addDatabase("QIBASE");
     db.setHostName(dbSet->value("Server").toString());
     db.setPort(dbSet->value("Port").toInt());
@@ -35,7 +36,7 @@ bool DataBase::openDatabase()
         msgBox.setDefaultButton(QMessageBox::Yes);
         int ret = msgBox.exec();
         if(ret == QMessageBox::Yes){
-            DatbaseSettingsDialog *dbSetDlg = new DatbaseSettingsDialog();
+            DatbaseSettingsDialog *dbSetDlg = new DatbaseSettingsDialog(dbSet);
             dbSetDlg->exec();
         }
         return false;

@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
     //Database
     QSettings *databaseSettings = new QSettings(configFileName,QSettings::IniFormat,&a);
-    databaseSettings->beginGroup("database");
+    databaseSettings->beginGroup("Database");
 //    qInfo(logInfo()) << databaseSettings->status();
     DataBase *db = new DataBase(databaseSettings,&a);
     if(!db->openDatabase()){
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    MainWindow w;
+    MainWindow w(databaseSettings);
     w.show();
     return a.exec();
 }
