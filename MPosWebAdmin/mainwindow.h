@@ -19,6 +19,8 @@ public:
 private slots:
     void on_actionDataBase_triggered();
 
+    void on_actionClients_triggered();
+
 private:
     Ui::MainWindow *ui;
     QSettings *appSettings;
