@@ -11,7 +11,7 @@ DataBase::DataBase(QSettings *settings, QObject *parent)
 
     db = QSqlDatabase::addDatabase("QIBASE");
     db.setHostName(dbSet->value("Server").toString());
-    db.setPort(dbSet->value("Port").toInt());
+//    db.setPort(dbSet->value("Port").toInt());
     db.setDatabaseName(dbSet->value("Database").toString());
     db.setUserName(dbSet->value("User").toString());
     db.setPassword(dbSet->value("Password").toString());

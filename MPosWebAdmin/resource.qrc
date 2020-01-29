@@ -4,5 +4,6 @@
         <file>Images/clientlist.png</file>
         <file>Images/add.png</file>
         <file>Images/delete.png</file>
+        <file>Images/edit.png</file>
     </qresource>
 </RCC>

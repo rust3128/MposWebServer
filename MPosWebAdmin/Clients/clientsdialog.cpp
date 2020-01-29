@@ -1,11 +1,14 @@
 #include "clientsdialog.h"
 #include "ui_clientsdialog.h"
+#include "LoggingCategories/loggingcategories.h"
 
 ClientsDialog::ClientsDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::ClientsDialog)
 {
     ui->setupUi(this);
+    createModel();
+    createUI();
 }
 
 ClientsDialog::~ClientsDialog()
@@ -23,4 +26,18 @@ void ClientsDialog::changeEvent(QEvent *e)
     default:
         break;
     }
+}
+
+void ClientsDialog::createModel()
+{
+    modelClients = new QSqlTableModel(this);
+    modelClients->setTable("CLIENTS");
+    modelClients->select();
+}
+
+void ClientsDialog::createUI()
+{
+    ui->listViewClients->setModel(modelClients);
+    ui->listViewClients->setModelColumn(1);
+
 }
