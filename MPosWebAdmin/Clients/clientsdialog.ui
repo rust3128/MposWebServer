@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>981</width>
-    <height>644</height>
+    <width>1100</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,18 +46,96 @@ QGroupBox::title {
      <property name="flat">
       <bool>false</bool>
      </property>
-     <layout class="QGridLayout" name="gridLayout" rowstretch="1,0,0">
+     <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="2">
+          <widget class="QToolButton" name="toolButtonClientDel">
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../resource.qrc">
+             <normaloff>:/Images/delete.png</normaloff>:/Images/delete.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QToolButton" name="toolButtonClientEdit">
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../resource.qrc">
+             <normaloff>:/Images/edit.png</normaloff>:/Images/edit.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QToolButton" name="toolButtonClientAdd">
+           <property name="text">
+            <string>...</string>
+           </property>
+           <property name="icon">
+            <iconset resource="../resource.qrc">
+             <normaloff>:/Images/add.png</normaloff>:/Images/add.png</iconset>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>32</width>
+             <height>32</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0">
        <widget class="QListView" name="listViewClients">
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(211, 255, 247);
-alternate-background-color: rgb(193, 197, 255);</string>
+         <string notr="true">background-color: rgb(211, 255, 247);</string>
         </property>
         <property name="frameShape">
          <enum>QFrame::WinPanel</enum>
         </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
         <property name="alternatingRowColors">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="selectionBehavior">
          <enum>QAbstractItemView::SelectRows</enum>
@@ -70,83 +148,18 @@ alternate-background-color: rgb(193, 197, 255);</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QPlainTextEdit" name="plainTextEdit"/>
-      </item>
-      <item row="0" column="1" rowspan="3">
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QToolButton" name="toolButtonClientAdd">
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resource.qrc">
-            <normaloff>:/Images/add.png</normaloff>:/Images/add.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="toolButtonClientEdit">
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resource.qrc">
-            <normaloff>:/Images/edit.png</normaloff>:/Images/edit.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item alignment="Qt::AlignTop">
-         <widget class="QToolButton" name="toolButtonClientDel">
-          <property name="text">
-           <string>...</string>
-          </property>
-          <property name="icon">
-           <iconset resource="../resource.qrc">
-            <normaloff>:/Images/delete.png</normaloff>:/Images/delete.png</iconset>
-          </property>
-          <property name="iconSize">
-           <size>
-            <width>32</width>
-            <height>32</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0" alignment="Qt::AlignHCenter">
+      <item row="2" column="0" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="label_2">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
         <property name="text">
          <string>Коментарии</string>
         </property>
        </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QTextEdit" name="textEditComment"/>
       </item>
      </layout>
     </widget>
@@ -159,13 +172,16 @@ alternate-background-color: rgb(193, 197, 255);</string>
      <property name="flat">
       <bool>false</bool>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,0,0">
-      <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="1" column="0" colspan="2">
        <widget class="QTableView" name="tableView"/>
       </item>
-      <item row="0" column="1" rowspan="3">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item alignment="Qt::AlignTop">
+      <item row="3" column="0" colspan="2">
+       <widget class="QTableView" name="tableView_2"/>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
          <widget class="QToolButton" name="toolButton_3">
           <property name="text">
            <string>...</string>
@@ -199,7 +215,7 @@ alternate-background-color: rgb(193, 197, 255);</string>
           </property>
          </widget>
         </item>
-        <item alignment="Qt::AlignTop">
+        <item>
          <widget class="QToolButton" name="toolButton_4">
           <property name="text">
            <string>...</string>
@@ -217,24 +233,21 @@ alternate-background-color: rgb(193, 197, 255);</string>
          </widget>
         </item>
         <item>
-         <spacer name="verticalSpacer">
+         <spacer name="horizontalSpacer_2">
           <property name="orientation">
-           <enum>Qt::Vertical</enum>
+           <enum>Qt::Horizontal</enum>
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>20</width>
-            <height>40</height>
+            <width>40</width>
+            <height>20</height>
            </size>
           </property>
          </spacer>
         </item>
        </layout>
       </item>
-      <item row="2" column="0">
-       <widget class="QTableView" name="tableView_2"/>
-      </item>
-      <item row="1" column="0" alignment="Qt::AlignHCenter">
+      <item row="2" column="0" colspan="2" alignment="Qt::AlignHCenter">
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Доступ к объектам</string>

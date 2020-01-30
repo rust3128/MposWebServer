@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Clients/clienteditdialog.cpp \
     Clients/clientsdialog.cpp \
     DataBase/database.cpp \
     DataBase/datbasesettingsdialog.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Clients/clienteditdialog.h \
     Clients/clientsdialog.h \
     DataBase/database.h \
     DataBase/datbasesettingsdialog.h \
@@ -32,6 +34,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    Clients/clienteditdialog.ui \
     Clients/clientsdialog.ui \
     DataBase/datbasesettingsdialog.ui \
     mainwindow.ui

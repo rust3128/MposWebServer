@@ -5,6 +5,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlTableModel>
+#include <QItemSelection>
 
 namespace Ui {
 class ClientsDialog;
@@ -21,12 +22,19 @@ public:
 protected:
     void changeEvent(QEvent *e);
 
+private slots:
+    void slotClientSelect(const QItemSelection &, const QItemSelection &);
+
+    void on_toolButtonClientEdit_clicked();
+
 private:
     void createModel();
     void createUI();
+    void createConnections();
 private:
     Ui::ClientsDialog *ui;
     QSqlTableModel *modelClients;
+    uint clientID;
 };
 
 #endif // CLIENTSDIALOG_H
