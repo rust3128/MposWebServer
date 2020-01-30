@@ -36,8 +36,9 @@ void ClientsDialog::createModel()
 {
     modelClients = new QSqlTableModel(this);
     modelClients->setTable("CLIENTS");
-    modelClients->select();
     modelClients->setSort(1,Qt::AscendingOrder);
+    modelClients->select();
+
 }
 
 void ClientsDialog::createUI()
@@ -75,6 +76,13 @@ void ClientsDialog::slotClientSelect(const QItemSelection &, const QItemSelectio
 void ClientsDialog::on_toolButtonClientEdit_clicked()
 {
     ClientEditDialog *clEdDlg = new ClientEditDialog(clientID,this);
+    clEdDlg->exec();
+    modelClients->select();
+}
+
+void ClientsDialog::on_toolButtonClientAdd_clicked()
+{
+    ClientEditDialog *clEdDlg = new ClientEditDialog(0,this);
     clEdDlg->exec();
     modelClients->select();
 }

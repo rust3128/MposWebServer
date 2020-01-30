@@ -19,9 +19,8 @@ protected:
     void changeEvent(QEvent *e);
 
 private slots:
-
-    void on_plainTextEditComment_textChanged();
-
+    void on_buttonBox_rejected();
+    void on_buttonBox_accepted();
 private:
     void createUI();
 private:

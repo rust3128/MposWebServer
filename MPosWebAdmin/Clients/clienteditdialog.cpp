@@ -33,18 +33,8 @@ void ClientEditDialog::changeEvent(QEvent *e)
     }
 }
 
-
-
-void ClientEditDialog::on_plainTextEditComment_textChanged()
-{
-    if(ui->plainTextEditComment->placeholderText().length() > MAX_CHAR){
-        ui->plainTextEditComment->setPlainText(ui->plainTextEditComment->placeholderText().left(MAX_CHAR));
-    }
-}
-
 void ClientEditDialog::createUI()
 {
-
     if(clientID>0){
         QSqlQuery q;
         q.prepare("select c.clientname, c.comments, c.isactive from clients c where c.client_id = :clientID");
@@ -55,4 +45,25 @@ void ClientEditDialog::createUI()
         ui->plainTextEditComment->setPlainText(q.value(1).toString().trimmed());
         ui->checkBoxIsActive->setChecked(q.value(2).toBool());
     }
+}
+
+void ClientEditDialog::on_buttonBox_rejected()
+{
+    this->reject();
+}
+
+void ClientEditDialog::on_buttonBox_accepted()
+{
+    QSqlQuery q;
+    if(clientID == 0){
+        q.prepare("INSERT INTO CLIENTS (CLIENTNAME, COMMENTS) VALUES (:clientName, :clientComment)");
+    } else {
+        q.prepare("UPDATE CLIENTS SET CLIENTNAME = :clientName, COMMENTS = :clientComment, ISACTIVE = :isActive WHERE CLIENT_ID = :clientID");
+    }
+    q.bindValue(":clientName", ui->lineEditName->text().trimmed());
+    q.bindValue(":clientComment", ui->plainTextEditComment->toPlainText().trimmed());
+    q.bindValue(":isActive", ui->checkBoxIsActive->isChecked());
+    q.bindValue(":clientID", clientID);
+    if(!q.exec()) qCritical(logCritical()) << "ERROR UPDATE" << q.lastError().text();
+    this->accept();
 }
