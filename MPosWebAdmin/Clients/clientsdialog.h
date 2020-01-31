@@ -29,6 +29,8 @@ private slots:
 
     void on_toolButtonClientAdd_clicked();
 
+    void on_toolButtonUserAdd_clicked();
+
 private:
     void createModel();
     void createUI();

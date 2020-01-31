@@ -7,5 +7,7 @@
         <file>Images/edit.png</file>
         <file>Images/check_box.png</file>
         <file>Images/check_box_unchek.png</file>
+        <file>Images/client.png</file>
+        <file>Images/user.png</file>
     </qresource>
 </RCC>

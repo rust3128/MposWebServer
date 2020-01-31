@@ -2,6 +2,7 @@
 #include "ui_clientsdialog.h"
 #include "LoggingCategories/loggingcategories.h"
 #include "Clients/clienteditdialog.h"
+#include "Clients/usereditdialog.h"
 
 ClientsDialog::ClientsDialog(QWidget *parent) :
     QDialog(parent),
@@ -49,10 +50,14 @@ void ClientsDialog::createUI()
 //                "QCheckBox::unchecked {color: darkRed;}"
 //                "QCheckBox::checked {color: darkBlue;}"
 //                );
+
+    ui->splitter->setStyleSheet("QSplitter::handle{background: darkGreen}");
     ui->listViewClients->setModel(modelClients);
     ui->listViewClients->setModelColumn(1);
     ui->toolButtonClientEdit->setEnabled(false);
     ui->toolButtonClientDel->setEnabled(false);
+    ui->groupBoxUsers->setEnabled(false);
+
 
 
 }
@@ -67,6 +72,7 @@ void ClientsDialog::slotClientSelect(const QItemSelection &, const QItemSelectio
 {
     ui->toolButtonClientEdit->setEnabled(true);
     ui->toolButtonClientDel->setEnabled(true);
+    ui->groupBoxUsers->setEnabled(true);
     QModelIndexList selectionClient = ui->listViewClients->selectionModel()->selectedIndexes();
     clientID = modelClients->data(modelClients->index(selectionClient.at(0).row(),0)).toUInt();
     ui->textEditComment->setText(modelClients->data(modelClients->index(selectionClient.at(0).row(),2)).toString().trimmed());
@@ -76,6 +82,7 @@ void ClientsDialog::slotClientSelect(const QItemSelection &, const QItemSelectio
 void ClientsDialog::on_toolButtonClientEdit_clicked()
 {
     ClientEditDialog *clEdDlg = new ClientEditDialog(clientID,this);
+    clEdDlg->setWindowTitle("Редактирование");
     clEdDlg->exec();
     modelClients->select();
 }
@@ -83,6 +90,13 @@ void ClientsDialog::on_toolButtonClientEdit_clicked()
 void ClientsDialog::on_toolButtonClientAdd_clicked()
 {
     ClientEditDialog *clEdDlg = new ClientEditDialog(0,this);
+    clEdDlg->setWindowTitle("Новый клиент");
     clEdDlg->exec();
     modelClients->select();
+}
+
+void ClientsDialog::on_toolButtonUserAdd_clicked()
+{
+    UserEditDialog *userDlg = new UserEditDialog(clientID, 0, this);
+    userDlg->exec();
 }
