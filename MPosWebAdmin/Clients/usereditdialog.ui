@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>434</width>
-    <height>340</height>
+    <width>353</width>
+    <height>304</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resource.qrc">
+    <normaloff>:/Images/user.png</normaloff>:/Images/user.png</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="0">
@@ -151,17 +155,31 @@
      </item>
     </layout>
    </item>
-   <item row="2" column="0">
-    <widget class="QCheckBox" name="checkBoxSendEmail">
-     <property name="text">
-      <string>Отправить данные по электронной почте</string>
+   <item row="4" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Close|QDialogButtonBox::Save</set>
      </property>
     </widget>
    </item>
    <item row="3" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+    <widget class="Line" name="line">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0" alignment="Qt::AlignHCenter">
+    <widget class="QCheckBox" name="checkBoxIsActive">
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Пользователь активен</string>
      </property>
     </widget>
    </item>
@@ -174,7 +192,6 @@
   <tabstop>lineEditFIO</tabstop>
   <tabstop>lineEditPhone</tabstop>
   <tabstop>lineEditEMail</tabstop>
-  <tabstop>checkBoxSendEmail</tabstop>
  </tabstops>
  <resources>
   <include location="../resource.qrc"/>

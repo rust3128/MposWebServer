@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Clients/clienteditdialog.cpp \
     Clients/clientsdialog.cpp \
+    Clients/modelusers.cpp \
     Clients/usereditdialog.cpp \
     DataBase/database.cpp \
     DataBase/datbasesettingsdialog.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 HEADERS += \
     Clients/clienteditdialog.h \
     Clients/clientsdialog.h \
+    Clients/modelusers.h \
     Clients/usereditdialog.h \
     DataBase/database.h \
     DataBase/datbasesettingsdialog.h \

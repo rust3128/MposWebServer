@@ -1,6 +1,7 @@
 #ifndef CLIENTSDIALOG_H
 #define CLIENTSDIALOG_H
 
+#include "modelusers.h"
 #include <QDialog>
 #include <QSqlQuery>
 #include <QSqlError>
@@ -24,12 +25,18 @@ protected:
 
 private slots:
     void slotClientSelect(const QItemSelection &, const QItemSelection &);
-
+    void slotUserSelect(const QItemSelection &, const QItemSelection &);
     void on_toolButtonClientEdit_clicked();
 
     void on_toolButtonClientAdd_clicked();
 
     void on_toolButtonUserAdd_clicked();
+
+    void on_toolButtonUserEdit_clicked();
+
+    void on_toolButtonUserDel_clicked();
+
+    void on_tableViewUsers_doubleClicked(const QModelIndex &index);
 
 private:
     void createModel();
@@ -38,7 +45,9 @@ private:
 private:
     Ui::ClientsDialog *ui;
     QSqlTableModel *modelClients;
-    uint clientID;
+    ModelUsers *modelUsers;
+    uint clientID =0;
+    uint userID = 0;
 };
 
 #endif // CLIENTSDIALOG_H

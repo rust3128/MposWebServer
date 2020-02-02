@@ -21,13 +21,18 @@ protected:
     void changeEvent(QEvent *e);
 
 private slots:
+    void on_buttonBox_rejected();
+    void on_buttonBox_accepted();
+    void on_checkBoxIsActive_toggled(bool checked);
 
 private:
     void createUI();
+    bool verifyLogin(QString login);
 private:
     Ui::UserEditDialog *ui;
     uint clientID;
     uint userID;
+    QString clientName;
 };
 
 #endif // USEREDITDIALOG_H
