@@ -9,5 +9,6 @@
         <file>Images/check_box_unchek.png</file>
         <file>Images/client.png</file>
         <file>Images/user.png</file>
+        <file>Images/GasStation.png</file>
     </qresource>
 </RCC>

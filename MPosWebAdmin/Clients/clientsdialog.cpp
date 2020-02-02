@@ -4,6 +4,7 @@
 
 #include "Clients/clienteditdialog.h"
 #include "Clients/usereditdialog.h"
+#include "objecteditdialog.h"
 #include <QMessageBox>
 #include <QIcon>
 
@@ -51,10 +52,23 @@ void ClientsDialog::createModel()
     modelUsers->setHeaderData(5,Qt::Horizontal,"Телефон");
     modelUsers->setHeaderData(6,Qt::Horizontal,"E-Mail");
     modelUsers->setHeaderData(7,Qt::Horizontal,"Доступ");
-//    modelUsers->horizontalHeader()->setStyleSheet("QHeaderView::section { background-color: red}");
-
     modelUsers->select();
     modelUsers->setFilter("client_id = 0");
+
+    modelObjects = new ModelObjects(this);
+    modelObjects->setTable("OBJETS");
+    modelObjects->setHeaderData(2,Qt::Horizontal,"Терминал");
+    modelObjects->setHeaderData(3,Qt::Horizontal,"Нименование");
+    modelObjects->setHeaderData(4,Qt::Horizontal,"Адрес");
+    modelObjects->setHeaderData(5,Qt::Horizontal,"Телефон");
+    modelObjects->setHeaderData(6,Qt::Horizontal,"Сервер");
+    modelObjects->setHeaderData(7,Qt::Horizontal,"База данных");
+    modelObjects->setHeaderData(8,Qt::Horizontal,"Пользователь");
+    modelObjects->setHeaderData(9,Qt::Horizontal,"Пароль");
+    modelObjects->setHeaderData(10,Qt::Horizontal,"Бослуживаем");
+    modelUsers->select();
+
+
 
 }
 
@@ -62,19 +76,13 @@ void ClientsDialog::createUI()
 {
     ui->toolButtonClientEdit->setEnabled(false);
     ui->groupBoxUsers->setEnabled(false);
-    ui->splitter->setStretchFactor(0,0);
-    ui->splitter->setStretchFactor(1,1);
+    ui->splitterMain->setStretchFactor(0,0);
+    ui->splitterMain->setStretchFactor(1,1);
     ui->toolButtonUserEdit->setEnabled(false);
     ui->toolButtonUserDel->setEnabled(false);
+    ui->toolButtonAZSEdit->setEnabled(false);
+    ui->toolButtonAZSDel->setEnabled(false);
 
-//    ui->checkBoxClientAll->setStyleSheet(
-//                "QCheckBox::indicator:unchecked {image: url(:/Images/check_box_unchek.png);}"
-//                "QCheckBox::indicator:checked {image: url(:/Images/check_box.png);}"
-//                "QCheckBox::unchecked {color: darkRed;}"
-//                "QCheckBox::checked {color: darkBlue;}"
-//                );
-
-    ui->splitter->setStyleSheet("QSplitter::handle{background: darkGreen}");
     ui->listViewClients->setModel(modelClients);
     ui->listViewClients->setModelColumn(1);
 
@@ -84,9 +92,13 @@ void ClientsDialog::createUI()
     ui->tableViewUsers->horizontalHeader()->setStyleSheet("QHeaderView::section { background-color: darkgrey}");
     ui->tableViewUsers->hideColumn(0);
     ui->tableViewUsers->hideColumn(1);
-//    ui->tableViewUsers->hideColumn(7);
 
-
+    ui->tableViewAZS->setModel(modelObjects);
+    ui->tableViewAZS->verticalHeader()->hide();
+    ui->tableViewAZS->horizontalHeader()->hide();
+    ui->tableViewAZS->horizontalHeader()->setStyleSheet("QHeaderView::section { background-color: darkgrey}");
+    ui->tableViewAZS->hideColumn(0);
+    ui->tableViewAZS->hideColumn(1);
 
 
 }
@@ -95,6 +107,7 @@ void ClientsDialog::createConnections()
 {
     connect(ui->listViewClients->selectionModel(),&QItemSelectionModel::selectionChanged,this,&ClientsDialog::slotClientSelect);
     connect(ui->tableViewUsers->selectionModel(),&QItemSelectionModel::selectionChanged,this,&ClientsDialog::slotUserSelect);
+    connect(ui->tableViewAZS->selectionModel(),&QItemSelectionModel::selectionChanged,this,&ClientsDialog::slotObjectSelect);
 }
 
 
@@ -115,6 +128,15 @@ void ClientsDialog::slotClientSelect(const QItemSelection &, const QItemSelectio
         ui->tableViewUsers->horizontalHeader()->hide();
     }
 
+    modelObjects->setFilter(QString("client_id = %1").arg(clientID));
+    if(modelObjects->rowCount()>0){
+        ui->tableViewAZS->horizontalHeader()->show();
+        ui->tableViewAZS->resizeColumnsToContents();
+        ui->tableViewAZS->verticalHeader()->setDefaultSectionSize(ui->tableViewAZS->verticalHeader()->minimumSectionSize());
+    } else {
+        ui->tableViewAZS->horizontalHeader()->hide();
+    }
+
 }
 
 void ClientsDialog::slotUserSelect(const QItemSelection &, const QItemSelection &)
@@ -123,6 +145,14 @@ void ClientsDialog::slotUserSelect(const QItemSelection &, const QItemSelection 
     ui->toolButtonUserEdit->setEnabled(true);
     QModelIndexList selectionUser = ui->tableViewUsers->selectionModel()->selectedIndexes();
     userID = modelUsers->data(modelUsers->index(selectionUser.at(0).row(),0),Qt::DisplayRole).toUInt();
+}
+
+void ClientsDialog::slotObjectSelect(const QItemSelection &, const QItemSelection &)
+{
+    ui->toolButtonAZSDel->setEnabled(true);
+    ui->toolButtonAZSEdit->setEnabled(true);
+    QModelIndexList selectionObject = ui->tableViewAZS->selectionModel()->selectedIndexes();
+    objectID = modelObjects->data(modelObjects->index(selectionObject.at(0).row(),0),Qt::DisplayRole).toUInt();
 }
 
 void ClientsDialog::on_toolButtonClientEdit_clicked()
@@ -187,4 +217,11 @@ void ClientsDialog::on_tableViewUsers_doubleClicked(const QModelIndex &index)
     if(userDlg->exec() == QDialog::Accepted) {
         modelUsers->select();
     }
+}
+
+void ClientsDialog::on_toolButtonAZSAdd_clicked()
+{
+    ObjectEditDialog * objDlg = new ObjectEditDialog(clientID,0,this);
+    objDlg->exec();
+
 }
