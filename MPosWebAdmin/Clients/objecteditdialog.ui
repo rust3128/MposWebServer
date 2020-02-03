@@ -341,6 +341,17 @@ QGroupBox::title {
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditTerminalID</tabstop>
+  <tabstop>plainTextEditName</tabstop>
+  <tabstop>plainTextEditAddress</tabstop>
+  <tabstop>lineEditPhone</tabstop>
+  <tabstop>lineEditServer</tabstop>
+  <tabstop>lineEditDatabase</tabstop>
+  <tabstop>lineEditUserDB</tabstop>
+  <tabstop>lineEditPassDB</tabstop>
+  <tabstop>checkBoxIsActive</tabstop>
+ </tabstops>
  <resources>
   <include location="../resource.qrc"/>
  </resources>

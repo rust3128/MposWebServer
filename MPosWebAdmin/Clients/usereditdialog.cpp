@@ -83,7 +83,7 @@ void UserEditDialog::on_buttonBox_accepted()
         msgBox->exec();
         return;
     }
-    if(userID == 0 && verifyLogin(ui->lineEditLogin->text().trimmed())){
+    if(verifyLogin(ui->lineEditLogin->text().trimmed())){
         msgBox->setInformativeText("Не верный логин!");
         msgBox->setText("У клиента <b>"+clientName+"</b> пользователь <b>"+ui->lineEditLogin->text().trimmed()+"</b> существует!");
         msgBox->exec();
@@ -117,13 +117,14 @@ void UserEditDialog::on_buttonBox_accepted()
     q.bindValue(":email", ui->lineEditEMail->text().trimmed());
     q.bindValue(":isactive", ui->checkBoxIsActive->isChecked());
     if(!q.exec()) {
-        qInfo(logInfo()) << "Ошибка добавления пользователя." << q.lastError().text();
-        msgBox->setText("Ошибка приложения. Не удалось изменить справочник пользователя.");
+        qCritical(logCritical()) << "Ошибка изменения таблицы пользователей." << q.lastError().text();
+        msgBox->setText("Ошибка приложения. Не удалось изменить справочник пользователей.");
         msgBox->setInformativeText(tr("Ошибка при работе с базой данных."));
         msgBox->setDetailedText(q.lastError().text());
         msgBox->exec();
         return;
     }
+    qInfo(logInfo()) << "Справочник пользователей успешно обновлен.";
     this->accept();
 }
 

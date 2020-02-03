@@ -56,7 +56,7 @@ void ClientsDialog::createModel()
     modelUsers->setFilter("client_id = 0");
 
     modelObjects = new ModelObjects(this);
-    modelObjects->setTable("OBJETS");
+    modelObjects->setTable("OBJECTS");
     modelObjects->setHeaderData(2,Qt::Horizontal,"Терминал");
     modelObjects->setHeaderData(3,Qt::Horizontal,"Нименование");
     modelObjects->setHeaderData(4,Qt::Horizontal,"Адрес");
@@ -65,8 +65,9 @@ void ClientsDialog::createModel()
     modelObjects->setHeaderData(7,Qt::Horizontal,"База данных");
     modelObjects->setHeaderData(8,Qt::Horizontal,"Пользователь");
     modelObjects->setHeaderData(9,Qt::Horizontal,"Пароль");
-    modelObjects->setHeaderData(10,Qt::Horizontal,"Бослуживаем");
-    modelUsers->select();
+    modelObjects->setHeaderData(10,Qt::Horizontal,"В работе");
+    modelObjects->select();
+    modelObjects->setFilter("client_id = 0");
 
 
 
@@ -222,6 +223,46 @@ void ClientsDialog::on_tableViewUsers_doubleClicked(const QModelIndex &index)
 void ClientsDialog::on_toolButtonAZSAdd_clicked()
 {
     ObjectEditDialog * objDlg = new ObjectEditDialog(clientID,0,this);
-    objDlg->exec();
+    if(objDlg->exec() == QDialog::Accepted){
+        modelObjects->select();
+    }
 
+}
+
+void ClientsDialog::on_toolButtonAZSEdit_clicked()
+{
+    ObjectEditDialog * objDlg = new ObjectEditDialog(clientID,objectID,this);
+    if(objDlg->exec() == QDialog::Accepted){
+        modelObjects->select();
+        ui->tableViewAZS->resizeColumnsToContents();
+    }
+}
+
+void ClientsDialog::on_toolButtonAZSDel_clicked()
+{
+    QModelIndex idx = ui->tableViewAZS->currentIndex();
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Удаление пользователя");
+    msgBox.setText("Вы действительно безвозвратно хотите удалить АЗС <b>"
+                              +modelObjects->data(modelObjects->index(idx.row(),3),Qt::DisplayRole).toString()+"</b>?");
+    msgBox.setInformativeText("Восстановление данных по АЗС будет не возможно.");
+    msgBox.setIconPixmap(QPixmap(":/Images/delete.png"));
+    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    if(msgBox.exec() == QMessageBox::Yes) {
+        QSqlQuery q;
+        q.prepare("DELETE FROM objects WHERE object_id = :objectID");
+        q.bindValue(":objectID", objectID);
+        q.exec();
+        modelObjects->select();
+    }
+}
+
+void ClientsDialog::on_tableViewAZS_doubleClicked(const QModelIndex &index)
+{
+    Q_UNUSED(index)
+    ObjectEditDialog * objDlg = new ObjectEditDialog(clientID,objectID,this);
+    if(objDlg->exec() == QDialog::Accepted){
+        modelObjects->select();
+    }
 }

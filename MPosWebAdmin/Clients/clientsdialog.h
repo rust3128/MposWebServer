@@ -36,6 +36,12 @@ private slots:
     void on_tableViewUsers_doubleClicked(const QModelIndex &index);
     void on_toolButtonAZSAdd_clicked();
 
+    void on_toolButtonAZSEdit_clicked();
+
+    void on_toolButtonAZSDel_clicked();
+
+    void on_tableViewAZS_doubleClicked(const QModelIndex &index);
+
 private:
     void createModel();
     void createUI();

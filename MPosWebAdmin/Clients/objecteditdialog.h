@@ -19,14 +19,19 @@ public:
 
 private slots:
     void on_checkBoxIsActive_toggled(bool checked);
+    void on_buttonBox_rejected();
+    void on_buttonBox_accepted();
+    void on_lineEditTerminalID_textChanged(const QString &arg1);
 
 private:
     void createUI();
+    bool veryfyTerminalID(uint termID);
 private:
     Ui::ObjectEditDialog *ui;
     uint clientID = 0;
     uint objectID = 0;
     QString clientName;
+    bool terminalIDChanged = false;
 };
 
 #endif // OBJECTEDITDIALOG_H
