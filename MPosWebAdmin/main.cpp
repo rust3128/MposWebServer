@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
     //Database
     QSettings *databaseSettings = new QSettings(configFileName,QSettings::IniFormat,&a);
     databaseSettings->beginGroup("Database");
-//    qInfo(logInfo()) << databaseSettings->status();
     DataBase *db = new DataBase(databaseSettings,&a);
     if(!db->openDatabase()){
         qCritical(logCritical()) << "Не могу открвыть базу даных! Ааварийное завершение работы.";

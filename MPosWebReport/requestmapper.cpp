@@ -4,7 +4,10 @@
 RequestMapper::RequestMapper(QObject *parent) :
     HttpRequestHandler(parent)
 {
-
+    userID = 0;
+    modelUsers = new QSqlQueryModel(this);
+    modelUsers->setQuery("SELECT c.user_id, c.username, c.userpass FROM clientusers c where c.isactive = 'true'");
+    qDebug() << "Select ID usera" << modelUsers->lastError().text();
 }
 
 
@@ -12,18 +15,24 @@ void RequestMapper::service(HttpRequest &request, HttpResponse &response)
 {
     QByteArray username=request.getParameter("username");
     QByteArray password=request.getParameter("password");
-    QByteArray userid = request.getParameter("userid");
 
-    qDebug("Request username=%s",username.constData());
-    qDebug("Recwest password=%s",password.constData());
-    qDebug("User ID=%s",userid.constData());
+    if(username.length() !=0){
+        userID=getUserID(QString(username), QString(password));
+        qDebug() << "Current USER id =" << userID;
+    }
+
+
+    qDebug("Request in mapper username=%s",username.constData());
+    qDebug("Recwest in mapper password=%s",password.constData());
+
 
     QByteArray path=request.getPath();
     qDebug("RequestMapper: path=%s",path.data());
-    if (path=="/"/* || path=="/login"*/) {
+    if (path=="/"  ) {
         loginPage.service(request, response);
-    } else if(path=="/login"){
-        response.write("Lofin ok");
+    } else if(path=="/login" && userID > 0){
+        objectListPage.setUserID(userID);
+        objectListPage.service(request,response);
     }
     else {
         response.setStatus(404,"Not found");
@@ -31,4 +40,19 @@ void RequestMapper::service(HttpRequest &request, HttpResponse &response)
     }
 
     qDebug("RequestMapper: finished request");
+}
+
+uint RequestMapper::getUserID(QString login, QString pass)
+{
+    uint userID = 0;
+    const int rowCount = modelUsers->rowCount();
+    for(int row=0; row<rowCount; ++row){
+        if(modelUsers->data(modelUsers->index(row,1)).toString() == login){
+            if(modelUsers->data(modelUsers->index(row,2)).toString() == pass){
+                userID = modelUsers->data(modelUsers->index(row,0)).toUInt();
+                break;
+            }
+        }
+    }
+    return userID;
 }

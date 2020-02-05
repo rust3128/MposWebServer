@@ -1,9 +1,12 @@
 #include <QCoreApplication>
 #include <QDir>
 #include <QFile>
+
 #include "httplistener.h"
 #include "httprequesthandler.h"
 #include "requestmapper.h"
+
+#include "DataBase/database.h"
 #include "global.h"
 
 using namespace stefanfrings;
@@ -60,15 +63,29 @@ int main(int argc, char *argv[])
     // Ищем конфигурационный файл
     QString configFileName=searchConfigFile();
 
+    // Configure logging
+    QSettings* logSettings=new QSettings(configFileName,QSettings::IniFormat,&a);
+    logSettings->beginGroup("logging");
+    logger=new FileLogger(logSettings,10000,&a);
+    logger->installMsgHandler();
+    // Log the library version
+    qDebug("QtWebApp has version %s",getQtWebAppLibVersion());
+
 
     // Читаем настройки сервера
     QSettings* listenerSettings=new QSettings(configFileName, QSettings::IniFormat, &a);
     listenerSettings->beginGroup("listener");
 
+    // Получаем настройки базы данных
+    QSettings *databaseSettings = new QSettings(configFileName,QSettings::IniFormat,&a);
+    databaseSettings->beginGroup("Database");
+    DataBase *db = new DataBase(databaseSettings,&a);
+    if(!db->openDatabase()){
+        qFatal("Не могу открвыть базу даных! Ааварийное завершение работы.");
+        return 1;
+    }
+
     new HttpListener(listenerSettings,new RequestMapper(&a),&a);
-
-
-
 
     return a.exec();
 }

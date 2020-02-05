@@ -18,14 +18,14 @@ void LoginController::service(HttpRequest &request, HttpResponse &response)
 
     response.setHeader("Content-Type", "text/html; charset=utf-8");
     response.write("<html><body>");
-    response.write(loginForm.toUtf8());
 
-//    if (username=="test" and password=="hello") {
-//        response.write("<html><body>");
-//        response.write("Yes, correct");
-//    } else {
-//        response.write(loginForm.toUtf8());
-//    }
+
+    if (username=="test" and password=="hello") {
+
+        response.write("Yes, correct");
+    } else {
+          response.write(loginForm.toUtf8());
+    }
     response.write("</body></html>",true);
 }
 
@@ -85,6 +85,7 @@ void LoginController::createLoginForm()
                 "<legend class='legend' align='center'>Просмотр отчетов МПос</legend>"
                 "<input type='text' name='username' placeholder='Имя' required>"
                 "<input type='password' name='password' placeholder='Пароль' required>"
+                "<input type='hidden' name='userid' value=></p>"
                 "<input type='submit' value='Вход'>"
                 "</fieldset>"
                 "</form>";

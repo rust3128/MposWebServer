@@ -31,3 +31,5 @@ SOURCES += $$PWD/httpglobal.cpp \
            $$PWD/httpsession.cpp \
            $$PWD/httpsessionstore.cpp \
            $$PWD/staticfilecontroller.cpp
+
+DISTFILES +=
