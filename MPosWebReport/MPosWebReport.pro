@@ -33,6 +33,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 include(../QtWebApp/httpserver/httpserver.pri)
 include(../QtWebApp/logging/logging.pri)
+include(../QtWebApp/templateengine/templateengine.pri)
 
 DISTFILES += \
     ../docroot/login.html \

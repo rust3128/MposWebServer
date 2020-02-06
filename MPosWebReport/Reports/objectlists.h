@@ -2,7 +2,7 @@
 #define OBJECTLISTS_H
 #include <QSqlQueryModel>
 #include <QSqlError>
-#include "global.h"
+
 #include "httprequesthandler.h"
 
 

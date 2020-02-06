@@ -1,4 +1,6 @@
 #include "objectlists.h"
+#include "template.h"
+#include "global.h"
 
 ObjectLists::ObjectLists(uint id, QObject *parent) :
     HttpRequestHandler(parent),
@@ -22,8 +24,15 @@ void ObjectLists::createModels()
 
 void ObjectLists::service(HttpRequest &request, HttpResponse &response)
 {
+    QByteArray language=request.getHeader("Accept-Language");
+    qDebug("language=%s",qPrintable(language));
+
     response.setHeader("Content-Type", "text/html; charset=utf-8");
-    response.write("<html><body>");
-    response.write(QString("Выбран пользователь с ID = %1").arg(userID).toUtf8());
-    response.write("</body></html>",true);
+    Template t=templateCache->getTemplate("objectslist",language);
+    t.setVariable("userID",QString::number(userID));
+    response.write(t.toUtf8(),true);
+
+//    response.write("<html><body>");
+//    response.write(QString("Выбран пользователь с ID = %1").arg(userID).toUtf8());
+//    response.write("</body></html>",true);
 }

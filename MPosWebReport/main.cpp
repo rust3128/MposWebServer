@@ -71,10 +71,10 @@ int main(int argc, char *argv[])
     // Log the library version
     qDebug("QtWebApp has version %s",getQtWebAppLibVersion());
 
-
-    // Читаем настройки сервера
-    QSettings* listenerSettings=new QSettings(configFileName, QSettings::IniFormat, &a);
-    listenerSettings->beginGroup("listener");
+    // Configure template cache
+    QSettings* templateSettings=new QSettings(configFileName,QSettings::IniFormat,&a);
+    templateSettings->beginGroup("templates");
+    templateCache=new TemplateCache(templateSettings,&a);
 
     // Получаем настройки базы данных
     QSettings *databaseSettings = new QSettings(configFileName,QSettings::IniFormat,&a);
@@ -84,7 +84,9 @@ int main(int argc, char *argv[])
         qFatal("Не могу открвыть базу даных! Ааварийное завершение работы.");
         return 1;
     }
-
+    // Читаем настройки сервера
+    QSettings* listenerSettings=new QSettings(configFileName, QSettings::IniFormat, &a);
+    listenerSettings->beginGroup("listener");
     new HttpListener(listenerSettings,new RequestMapper(&a),&a);
 
     return a.exec();
