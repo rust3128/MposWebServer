@@ -23,7 +23,7 @@ private:
     uint getUserID(QString login, QString pass);
 private:
     LoginController loginPage;
-    ObjectLists objectListPage;
+    ObjectLists *objectListPage;
     QSqlQueryModel *modelUsers;
     uint userID;
 };

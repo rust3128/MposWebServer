@@ -30,9 +30,14 @@ void RequestMapper::service(HttpRequest &request, HttpResponse &response)
     qDebug("RequestMapper: path=%s",path.data());
     if (path=="/"  ) {
         loginPage.service(request, response);
-    } else if(path=="/login" && userID > 0){
-        objectListPage.setUserID(userID);
-        objectListPage.service(request,response);
+    } else if(path=="/objects"){
+        if(userID >0){
+            objectListPage = new ObjectLists(userID);
+//            objectListPage->setUserID(userID);
+            objectListPage->service(request,response);
+        } else {
+            loginPage.service(request, response);
+        }
     }
     else {
         response.setStatus(404,"Not found");

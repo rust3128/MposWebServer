@@ -1,6 +1,10 @@
 #ifndef OBJECTLISTS_H
 #define OBJECTLISTS_H
+#include <QSqlQueryModel>
+#include <QSqlError>
+#include "global.h"
 #include "httprequesthandler.h"
+
 
 using namespace stefanfrings;
 
@@ -8,12 +12,13 @@ class ObjectLists : public HttpRequestHandler
 {
     Q_OBJECT
 public:
-   explicit ObjectLists(QObject *parent = nullptr);
-   void setUserID(uint ID);
+   explicit ObjectLists(uint id, QObject *parent = nullptr);
 
 private:
+   void createModels();
+private:
     uint userID;
-
+    QSqlQueryModel *modelObjects;
     // HttpRequestHandler interface
 public:
     void service(HttpRequest &request, HttpResponse &response);

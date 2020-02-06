@@ -1,14 +1,22 @@
 #include "objectlists.h"
 
-ObjectLists::ObjectLists(QObject *parent) :
-    HttpRequestHandler(parent)
+ObjectLists::ObjectLists(uint id, QObject *parent) :
+    HttpRequestHandler(parent),
+    userID(id)
 {
-
+    createModels();
 }
 
-void ObjectLists::setUserID(uint ID)
+
+
+void ObjectLists::createModels()
 {
-    userID = ID;
+    modelObjects = new QSqlQueryModel();
+    QString strSQL = QString("SELECT o.terminal_id, o.name, o.address from objects o "
+                             "INNER JOIN clientusers u ON u.client_id = o.client_id "
+                             "WHERE u.user_id = %1").arg(userID);
+    modelObjects->setQuery(strSQL);
+
 }
 
 

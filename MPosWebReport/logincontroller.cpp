@@ -80,7 +80,7 @@ void LoginController::createLoginForm()
                 "</style>"
                 "</head>"
                 "<body>"
-                "<form class='login' action='/login' method='post'>"
+                "<form class='login' action='/objects' method='post'>"
                 "<fieldset>"
                 "<legend class='legend' align='center'>Просмотр отчетов МПос</legend>"
                 "<input type='text' name='username' placeholder='Имя' required>"
