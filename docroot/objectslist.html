@@ -1,5 +1,27 @@
 <html>
     <body>
-        Привет пользователь с кодом = {userID}.
+
+        <h1 align = center>{clientName}</h2>
+        <table align = center border = 1>
+         <caption>Список АЗС</caption>
+         <tr>
+            <th>№<br>п/п</th>
+            <th>№<br>терминала</th>
+            <th>Название</th>
+            <th>Адрес</th>
+         </tr>
+            {loop row}
+                <tr>
+                    <form action=/shifts metod=post>
+                    <input type=hidden name=objectID value = {row.objectID}>
+                    <td align = center>{row.numPp}</td>
+                    <td align = center><a href=/shifts>{row.terminalID}</a></td>
+                    <td>{row.name}</td>
+                    <td>{row.address}</td>
+                    <td><input type="submit" value="Отчет"></td>
+                     </form>
+                </tr>
+            {end row}
+        </table>
     </body>
 </html>

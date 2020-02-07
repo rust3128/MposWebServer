@@ -15,6 +15,7 @@ void RequestMapper::service(HttpRequest &request, HttpResponse &response)
 {
     QByteArray username=request.getParameter("username");
     QByteArray password=request.getParameter("password");
+    QByteArray objectID=request.getParameter("objectID");
 
     if(username.length() !=0){
         userID=getUserID(QString(username), QString(password));
@@ -24,7 +25,7 @@ void RequestMapper::service(HttpRequest &request, HttpResponse &response)
 
     qDebug("Request in mapper username=%s",username.constData());
     qDebug("Recwest in mapper password=%s",password.constData());
-
+    qDebug("Recwest in mapper ObjectID=%s",objectID.constData());
 
     QByteArray path=request.getPath();
     qDebug("RequestMapper: path=%s",path.data());

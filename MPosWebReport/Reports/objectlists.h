@@ -2,7 +2,8 @@
 #define OBJECTLISTS_H
 #include <QSqlQueryModel>
 #include <QSqlError>
-
+#include <QSqlQuery>
+#include "DataBase/database.h"
 #include "httprequesthandler.h"
 
 
@@ -16,9 +17,13 @@ public:
 
 private:
    void createModels();
+   void getClientData();
 private:
     uint userID;
     QSqlQueryModel *modelObjects;
+    QString clientName;
+    DataBase *db;
+    int azsCount;
     // HttpRequestHandler interface
 public:
     void service(HttpRequest &request, HttpResponse &response);
